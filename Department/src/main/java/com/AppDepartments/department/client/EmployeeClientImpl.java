@@ -9,11 +9,17 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
+import com.AppDepartments.department.model.Department;
 import com.AppDepartments.department.model.Employee;
+import com.AppDepartments.department.repository.DepartmentRepository;
+import com.AppDepartments.department.client.EmployeeClient;
 
-
+@Slf4j
 @Component
 public class EmployeeClientImpl implements EmployeeClient {
 
@@ -22,7 +28,10 @@ public class EmployeeClientImpl implements EmployeeClient {
 
 	private final RestTemplate restTemplate;
 	private final String EmployeeHost;
-
+	@Autowired
+	DepartmentRepository repository;
+	@Autowired
+	EmployeeClient employeeClient;
 
 	@Autowired
 	public EmployeeClientImpl(final RestTemplate restTemplate, @Value("${employeeHost}") final String employeeHost) {
@@ -43,7 +52,18 @@ public class EmployeeClientImpl implements EmployeeClient {
 	//findByDepartment
 	
 	@GetMapping("/employees/department/{departmentId}")
-	List<Employee> findByDepartment(@PathVariable("departmentId") Long departmentId);
+	public 	List<Employee> findByDepartment(@PathVariable("departmentId") Long departmentId) {
+		return null;
+	}
+	
+	@GetMapping("/organization/{organizationId}/with-employees")
+	public List<Department> findByOrganizationWithEmployees(@PathVariable("organizationId") Long organizationId) {
+		log.info("Department find: organizationId={}", organizationId);
+		List<Department> departments = repository.findByOrganization(organizationId);
+		departments.forEach(d -> d.setEmployees(employeeClient.findByDepartment(d.getId())));
+		return departments;
+	}
+	
 
 
 	/*@Override

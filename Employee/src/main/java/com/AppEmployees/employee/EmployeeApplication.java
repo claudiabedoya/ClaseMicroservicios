@@ -25,6 +25,14 @@ public class EmployeeApplication {
 	
 	@Bean
 	EmployeeRepository repository() {
+		/*
+		 	private Long id;
+	private Long organizationId;
+	private Long departmentId;
+	private String name;
+	private int age;
+	private String position;
+		 */
 		
 		EmployeeRepository repository = new EmployeeRepositoryImpl();
 		repository.add(new Employee(1L, 1L, "John Smith", 34, "Analyst"));

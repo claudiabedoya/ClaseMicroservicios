@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
+import com.AppDepartments.department.model.Department;
 import com.AppDepartments.department.model.Employee;
 
 public interface EmployeeClient {
@@ -18,9 +19,9 @@ public interface EmployeeClient {
 	
 	List<Employee> retrieveEmployeeList (final Long employee);
 
-	//List<Employee> findByDepartment(Long id);
+    List<Employee> findByDepartment(final Long id);
+    
+    List<Department> findByOrganizationWithEmployees(final Long organizationId);
 	
-	
-
 }
 

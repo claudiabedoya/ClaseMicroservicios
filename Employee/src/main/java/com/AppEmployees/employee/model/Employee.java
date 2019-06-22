@@ -18,7 +18,7 @@ public class Employee {
 	private Long id;
 	private Long organizationId;
 	private Long departmentId;
-	private String name;
+	private String nombre;
 	private int age;
 	private String position;
 
@@ -26,7 +26,7 @@ public class Employee {
 	public Employee(Long organizationId, Long departmentId, String name, int age, String position) {
 		this.organizationId = organizationId;
 		this.departmentId = departmentId;
-		this.name = name;
+		this.nombre = name;
 		this.age = age;
 		this.position = position;
 	}
